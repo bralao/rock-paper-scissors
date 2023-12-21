@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Rock Paper Scissors</title>
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+
+  <style>
+    body {
+      background-color: #0d1b2a;
+    }
+
+    .container {
+      margin: 0 auto;
+      width: 50%;
+      text-align: center;
+    }
+
+    .rock, .paper, .scissors {
+      margin: 0 10px;
+      height: 80px;
+      width: 80px;
+      border-radius: 50%;
+      border: 2px solid ;
+      border-color: #415a77;
+      background-color: #778da9;
+      font-size: 2.5rem;
+      box-shadow: 2px 2px;
+      transition: all 0.3s ease-in-out;
+
+    }
+
+    .rock:hover, .paper:hover, .scissors:hover {
+      cursor: pointer;
+      border-color: #415a77;
+      background-color: #778da9;
+    }
+
+    #battleParagraph, #resultParagraph {
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+
+    #wins, #losses, #ties {
+      margin-left: 15px;
+    }
+
+   
+
+  </style>
+
+  <body>
+    <div class="container w-50">
+      
+      <div class="mt-5 p-2">
+        <h1 class="mb-5 text-light">Rock Paper Scissors</h1>
+        <button onclick="playGame('✊')" class="rock">✊</button>
+        <button onclick="playGame('🖐️')" class="paper">🖐️</button>
+        <button onclick="playGame('✌️')" class="scissors">✌️</button>
+      </div>
+
+      <div class="mt-2 p-2">
+        <p id="battleParagraph" class="text-light"></p>
+        <p id="resultParagraph" class="text-light"></p>
+      </div>
+      <div class="d-flex justify-content-center">
+        <div class="text-light">
+          <p id="wins"></p>
+        </div>
+        <div class="text-light">
+          <p id="losses"></p>
+        </div>
+        <div class="text-light">
+          <p id="ties"></p>
+        </div>
+      </div>      
+    </div>
+
+    <script>
+
+      let wins = 0;
+      let losses = 0;
+      let ties = 0;
+      // this variables stay outside the playGame function so that they are not reset everytime the playGame is called
+
+      function playGame(userChoice) {
+        // Computer pick a random number between 0 and 1
+        const randomNumber = Math.random();
+        let computerChoice = '';
+        
+        // Assign rock, paper, or scissors to a number range
+        if (randomNumber >= 0 && randomNumber <= 1/3) {
+          computerChoice = '✊';
+        } else if (randomNumber >= 1/3 && randomNumber <= 2/3) {
+          computerChoice = '🖐️';
+        } else {
+          computerChoice = '✌️';
+        }
+        
+        // Compare userChoice and computerChoice
+        // Keep track of the result (win, lose, tie)
+
+        let result = '';
+
+        if (userChoice === computerChoice) {
+          result = 'It\'s a tie!';
+          ties++;
+        } else if (
+          (userChoice === '✊' && computerChoice === '✌️') ||
+          (userChoice === '🖐️' && computerChoice === '✊') ||
+          (userChoice === '✌️' && computerChoice === '🖐️')
+        ) {
+          result = 'Congratulations! You win!';
+          wins++;
+        } else {
+          result = 'You lose. Try again!';
+          losses++;
+        }
+
+        /* Display the result in a popup
+        alert(`You picked ${userChoice}.\nThe computer picked ${computerChoice}.\n\n${result}`);
+        */
+        
+        // Display the result in the HTML
+        document.getElementById('battleParagraph').innerText = `${userChoice} VS ${computerChoice}`;
+        document.getElementById('resultParagraph').innerText = `${result}`;
+        document.getElementById('wins').innerText = `Wins: ${wins}`;
+        document.getElementById('losses').innerText = `Losses: ${losses}`;
+        document.getElementById('ties').innerText = `Ties: ${ties}`;
+      }
+
+
+    </script>
+  </body>
+</html>
